@@ -20,6 +20,8 @@ contract FundContract {
     }
     // View the contract balance using this simple function
     function contractValue() public view returns(uint) {
+    // Only the contract owner can view the contract balance, if you want this to be viewable by all simply comment out the below require statement
+        require(msg.sender == owner, "You cannot view the contract balance as you're not the owner");
         return address(this).balance;
     }
     // Only the contract owner can withdraw the balance of the contract
