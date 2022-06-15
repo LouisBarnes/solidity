@@ -14,6 +14,8 @@ contract FundContract {
     function fund() public payable {
         // Here we can set parameters of what amounts can be deposited into out contract     
         require(msg.value >= 1 ether && msg.value < 3 ether, "You need to deposit at least 1 ether but no more than 3 ether to this contract.");
+        // Want to use wei instead? use the below require statement
+        //require(msg.value >= 10 wei, "You need to deposit at least 10 Wei to this contract.");
         // Use the below line to specify an exact amount
         //require(msg.value == 1 ether, "You must deposit exactly 1 ether to this contract.");
         addressToAmountFunded[msg.sender] += msg.value;
