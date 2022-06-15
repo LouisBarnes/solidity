@@ -8,7 +8,7 @@ contract FundContract {
     address public owner;
     // The below code is used within withdrawSelected function
     address[] public funders;
-    
+
     mapping(address => uint256) public addressToAmountFunded;
 
     // Places the deployer address as the contract owner
@@ -53,11 +53,13 @@ contract FundContract {
     }
     // This allows you to remove ether from accounts that are within set parameter values, for instance
     // between 1 and 4 ether
-    function withdrawSelected() payable onlyOwner public {
+    function withdrawFromFilteredAccounts(uint256 _fromEtherAmount, uint256 _toEtherAmount) payable onlyOwner public {
         uint256 amountToWithdraw;
-        for (uint256 i = 0; i < funders.length; i++){
+        uint etherFrom = _fromEtherAmount*(1 ether);
+        uint etherTo = _toEtherAmount*(1 ether);
+        for (uint256 i = 0; i < funders.length; i++) {
             address funder = funders[i];
-            if(addressToAmountFunded[funder] >= 1 ether && addressToAmountFunded[funder] <= 4 ether){
+            if(addressToAmountFunded[funder] >= etherFrom && addressToAmountFunded[funder] <= etherTo) {
                 amountToWithdraw = addressToAmountFunded[funder];
                 addressToAmountFunded[funder] = 0;
             }
